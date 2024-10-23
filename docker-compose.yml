@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    ports:
+      - "1883:1883"   # MQTT
+      - "8883:8883"   # MQTT sobre TLS (si está configurado)
+      # - "9001:9001" # WebSockets (si está configurado)
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./config/passwords.txt:/mosquitto/config/passwords.txt
+      - ./data/log:/mosquitto/log
+      - ./data/db:/mosquitto/db
+    restart: unless-stopped
